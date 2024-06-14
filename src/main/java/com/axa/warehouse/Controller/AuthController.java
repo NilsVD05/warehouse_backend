@@ -34,10 +34,7 @@ public class AuthController {
         return "Hello World";
     }
 
-    @PutMapping
-    public ResponseEntity<?> updateProfileUser(@RequestBody UserProfile user) {
-        return ResponseEntity.ok(user);
-    }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
@@ -52,24 +49,7 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
-    @GetMapping("/profile")
-    public ResponseEntity<?> getProfileUser(HttpServletRequest request) {
-        // Extract the token from the Authorization header
-        String authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String jwt = authorizationHeader.substring(7);
-            String username = jwtUtil.extractUsername(jwt);
 
-            // Load the user details
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            // Return the user's profile
-            return ResponseEntity.ok(userDetails);
-        }
-
-        // If the token is not present or invalid, return an unauthorized error
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
-    }
 
 
 }

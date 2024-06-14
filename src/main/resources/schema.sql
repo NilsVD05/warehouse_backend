@@ -36,3 +36,19 @@ CREATE TABLE app_product (
     name VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE doc_folder (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            title VARCHAR(255) NOT NULL,
+                            sort_order INT NOT NULL
+);
+
+
+CREATE TABLE app_document (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              title VARCHAR(255) NOT NULL,
+                              sort_order INT NOT NULL,
+                              document_url VARCHAR(255) NOT NULL,
+                            size INT NOT NULL,
+                              doc_folder_id INT,
+                              FOREIGN KEY (doc_folder_id) REFERENCES doc_folder(id)
+);
